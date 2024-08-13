@@ -29,7 +29,7 @@ export default function Bottom() {
             >
               <Button href="https://github.com/JakeMcAllen"><GitHubIcon /></Button>
               <Button href="https://www.linkedin.com/in/giorgio-allena/"><LinkedInIcon /></Button>
-              
+
             </Grid>
           </Item>
         </Grid>
