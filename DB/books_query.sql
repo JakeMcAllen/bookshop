@@ -1,19 +1,25 @@
 SELECT * FROM bookshop_db.book;
-SELECT * FROM bookshop_db.book WHERE writer_id;
+SELECT * FROM bookshop_db.book WHERE writer_id=2;
 
 SELECT Title, price, rating, reassume FROM bookshop_db.book;
 
 
 SELECT idBook FROM book LIMIT 2 OFFSET 2;
 
+SELECT ROUND(COUNT(idBook) / 6 , 0) as num_page FROM book;
+
 delete from book  WHERE idBook=33;
 
 UPDATE book SET n_rating = n_rating + 1, rating=(( 1 + rating ) / 2 ) WHERE idBook = 13;
+UPDATE book SET Title="", page_num=1, price=1, genre="" WHERE idBook = 13;
+
 
 SELECT idBook FROM bookshop_db.book WHERE price>3 and price < 100;
 
 SELECT idBook FROM book WHERE genre="Horror";
 SELECT idBook FROM book WHERE Title LIKE "%libro%";
+
+
 
 
 SELECT * FROM bookshop_db.book WHERE idBook=2;

@@ -20,7 +20,10 @@ export default function Explore(
   const [title, setTitle] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [stars, setStars] = useState<number>(2.5);
-  const [reassume, setReassume] = useState<number>(2.5);
+  const [Pubblication, setPubblication] = useState<string>("");
+  const [reassume, setReassume] = useState<string>("");
+  const [Description, setDescription] = useState<String>("");
+
 
 
 
@@ -42,7 +45,9 @@ export default function Explore(
         setTitle(rs["Title"])
         setPrice(rs["price"])
         setStars(rs["rating"])
+        setPubblication(rs["Pubblication"])
         setReassume(rs["reassume"])
+        setDescription(rs["Description"])
 
         console.log("rs");
         console.log(rs);
@@ -90,8 +95,9 @@ export default function Explore(
         }}
       />
       <Typography> Price: {price} </Typography>
+      <Typography> Pubblication: {Pubblication} </Typography>
       <Typography> Riassunto: </Typography>
-      <p>{reassume}</p>
+      <p>{reassume != "" ? reassume : Description}</p>
     </>
   );
 }

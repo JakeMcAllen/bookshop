@@ -10,6 +10,20 @@ export async function getBooksIDs(num_b, page_n) {
     
 }
 
+
+export async function bk4pg(bk4pg) {
+
+  console.log("getNumbOfPages");
+  
+  let resp = await fetch('/api/books/pages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({book4page: bk4pg}),
+  })
+  return await resp.json();
+
+}
+
 export async function getBooksIDsWithPriceAndTitle(num_b, page_n) {
 
   let resp = await fetch('/api/books/GetIDSPT', {
@@ -93,3 +107,5 @@ export async function Explore_BookByID(bkID) {
       return await resp.json();
 
 }
+
+

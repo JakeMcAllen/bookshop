@@ -83,7 +83,6 @@ export default function Delete_book() {
                                 <TableCell align="right">Price</TableCell>
                                 <TableCell align="right">Genre</TableCell>
                                 <TableCell align="right">Rating</TableCell>
-                                <TableCell align="right">Pairs</TableCell>
                                 <TableCell align="right"></TableCell>
                             </TableRow>
                             </TableHead>

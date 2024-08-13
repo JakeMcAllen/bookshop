@@ -1,9 +1,9 @@
-export async function addBookMyBook(title, price, genre, description, pn, writer_id) {
+export async function addBookMyBook(title, price, genre, pubblication, description, pn, writer_id) {
 
     let resp = await fetch('/api/books/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({Title: title, Price: price, Page_num: pn, Genre: genre, Description: description, writerID: writer_id}),
+      body: JSON.stringify({Title: title, Price: price, Page_num: pn, Genre: genre, Pubblication: pubblication, Description: description, writerID: writer_id}),
     })
     return await resp.json();
     
@@ -19,12 +19,12 @@ export async function removeBook(bookID) {
 }
 
 
-export async function modifyBook(title, price, genre, description, pn, idBook) {
+export async function modifyBook(title, price, genre, pubblication, description, pn, idBook) {
 
-    let resp = await fetch('/api/book/modify', {
+    let resp = await fetch('/api/books/modify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({Title: title, Price: price, Page_num: pn, Genre: genre, Description: description, idBook: idBook}),
+      body: JSON.stringify({Title: title, Price: price, Page_num: pn, Genre: genre, Pubblication: pubblication, Description: description, idBook: idBook}),
     })
     return await resp.json();
     

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     
     try {
         const result = await excuteQuery({
-            query: 'SELECT Title, price, rating, reassume FROM book WHERE idBook=' + userData["idBook"] + ';',
+            query: 'SELECT Title, Pubblication, price, rating, Description, reassume FROM book WHERE idBook=' + userData["idBook"] + ';',
             values: [],
         });
         console.log( result[0]["Title"] );

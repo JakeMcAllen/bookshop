@@ -5,17 +5,17 @@ import { NextRequest } from "next/server";
 import excuteQuery from "../../../../config/db";
 
 
-// Get all info by id
+// Modify book
 export async function POST(request: NextRequest) {
     const userData = await request.json();
+    console.log("modify book         " + 'UPDATE book SET Title='+userData["Title"]+', page_num='+userData["Page_num"]+', price='+userData["Price"]+', genre="'+userData["Genre"] +'", Description="'+userData["Description"]+'"  WHERE idBook = '+userData["idBook"]) 
     
     try {
         const result = await excuteQuery({
-            query: 'UPDATE book SET Title='+userData["Title"]+', page_num='+userData["Page_num"]+', price='+userData["Price"]+', genre="'+userData["Genre"] +'", Description="'+userData["Description"]+'"  WHERE idBook = '+userData["idBook"]+';',
+            query: 'UPDATE book SET Title="'+userData["Title"]+'", page_num='+userData["Page_num"]+', price='+userData["Price"]+', genre="'+userData["Genre"] +'", Description="'+userData["Description"]+'", Pubblication= CAST("'+userData["Pubblication"]+'" AS DATETIME) WHERE idBook = '+userData["idBook"]+';',
             values: [],
         });
         console.log( result );
-        console.log("modify book         " + 'UPDATE book SET Title='+userData["Title"]+', page_num='+userData["Page_num"]+', price='+userData["Price"]+', genre="'+userData["Genre"] +'", Description="'+userData["Description"]+'"  WHERE idBook = '+userData["idBook"]) 
 
         if (result != undefined) return Response.json({message: "Success", result: result})
         else return Response.json({message: "Error"})

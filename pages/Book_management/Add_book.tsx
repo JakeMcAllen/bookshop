@@ -15,6 +15,8 @@ export default function Add_book() {
     const [price, setPrice] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
 
+    const [Pubblication, setPubblication] = useState<undefined | string>()
+
     const [genre_f, setGenre_f] = useState('');
     const [description, setDescription] = useState('');
     
@@ -22,22 +24,27 @@ export default function Add_book() {
     const handleChange_title = async (event: React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value); }
     const handleChange_genre = async (event: SelectChangeEvent) => { setGenre_f(event.target.value); }
     const handleChange_price = async (event: React.ChangeEvent<HTMLInputElement>) => { setPrice(Number(event.target.value) ); }
+    const handleChange_Pubblication = async (event: React.ChangeEvent<HTMLInputElement>) => { setPubblication( event.target.value); }
     const handleChange_Page_Number = async (event: React.ChangeEvent<HTMLInputElement>) => { setPageNumber( Number(event.target.value) ); }
     const handleChange_Desciption = async (event: React.ChangeEvent<HTMLInputElement>) => { setDescription(event.target.value); }
 
 
 
-    const ManageInsert = async (event: SelectChangeEvent) => {
+    const ManageInsert = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+        let idUsr = getCookie("id");
 
-        let idUsr = getCookie("id")
 
-        if (idUsr != undefined && title != "" && price > 0 && pageNumber > 0 && genre_f != "" && genre_f != "none" && description != "") 
-            await addBookMyBook(title, price, genre_f, description, pageNumber, idUsr )
+        if (idUsr != undefined && title != "" && price > 0 && pageNumber > 0 && Pubblication != undefined && Pubblication.split("-").length == 3 && genre_f != "" && genre_f != "none" && description != "")
+            await addBookMyBook(title, price, genre_f, Pubblication, description, pageNumber, idUsr )
         else {
+
             console.log("title");
             console.log(idUsr);
             console.log(title);
             console.log(price);
+            console.log(Pubblication);
+
             console.log(pageNumber);
             console.log(genre_f);
             console.log(description);
@@ -83,6 +90,7 @@ export default function Add_book() {
                 >
                     <TextField id="outlined-basic" value={price} type="number" label="Price" variant="outlined" onChange={handleChange_price} />
                     <TextField id="outlined-basic" value={pageNumber} type="number" label="Number of pages" variant="outlined" onChange={handleChange_Page_Number} />
+                    <input id="outlined-basic" type="date" name="dateRequired" onChange={handleChange_Pubblication} style={{height: "50px", width: "150px", paddingLeft: "10px"}} /> 
                     <FormControl sx={{ m: 1, minWidth: 120 }} size="small" style={{border: "20px", borderColor: "#1976d2",}}>
                         <InputLabel id="demo-select-small-label">Genre</InputLabel>
                         <Select
@@ -124,7 +132,7 @@ export default function Add_book() {
                 >
                     <Typography style={{margin: "15px", fontSize: "20px", fontWeight: "700"}} >Book is add !!!</Typography>
                 </Popover>
-                <Button style={{margin: "15px 0", backgroundColor: "green", borderRadius: "25px", color: "white"}} onClick={ManageInsert}>
+                <Button aria-describedby={id_P} variant="contained" style={{margin: "15px 0", backgroundColor: "green", borderRadius: "25px", color: "white"}} onClick={ManageInsert}>
                     <Typography style={{padding: "20px", fontWeight: "700", fontSize: "xx-large"}}>ADD</Typography>
                 </Button>
             </Grid>

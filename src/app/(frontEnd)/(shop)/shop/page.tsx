@@ -6,21 +6,25 @@ import { Box, Button, CircularProgress, FormControl, Grid, InputLabel, MenuItem,
 import Item from "../../../../../pages/Items/ShopItem";
 import ImgMediaCard from "../../../../../pages/Cards/MediaCardShop";
 
-import { getBooksIDs, getBook_ByPrice, getBook_ByGenre, getBooksIDsWithPriceAndTitle } from "./../../../(functions)/book/book_shop"
+import { getBooksIDs, getBook_ByPrice, getBook_ByGenre, getBooksIDsWithPriceAndTitle, bk4pg } from "./../../../(functions)/book/book_shop"
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Link from "next/link";
 
-export default function Shop() {
+export default function Shop({currentPage} : {currentPage: undefined | number}) {
 
 
   const numForPage = 6
   const [loading, setLoading] = useState(true);
+  const [pageNumb, setPageNumb] = useState(1);
+
+
 
 
   useEffect(() => { 
   
     const fetchData = async () => {
 
-      let res = await getBooksIDs(numForPage, 0)
+      let res = await getBooksIDs(numForPage, currentPage == undefined ? 0 : currentPage)
       
       console.log("res");
       console.log(res);
@@ -36,7 +40,16 @@ export default function Shop() {
 
       } 
       
-      
+      console.log("np1");
+      let np = await bk4pg(numForPage);
+      if (res["message"] == "Success") {
+        console.log("np2");
+        console.log(np["result"][0]["num_page"]);
+        console.log("np3");
+        setPageNumb(Number(np["result"][0]["num_page"]))
+      }
+
+
 
 
     }    
@@ -112,26 +125,20 @@ export default function Shop() {
     a = a["Title"].toLowerCase();
     b = b["Title"].toLowerCase();
   
-    if (a > b) {
-      return 1;
-    } else if (a < b) {
-      return -1;
-    } else if (a === b) {
-      return 0;
-    }
+    if (a > b) { return 1; } 
+    else if (a < b) { return -1; } 
+    else if (a === b) { return 0; }
+    else return 0
   }
 
   function sortThings_inv(a: any, b: any) {
     a = a["Title"].toLowerCase();
     b = b["Title"].toLowerCase();
   
-    if (a > b) {
-      return -1;
-    } else if (a < b) {
-      return 1;
-    } else if (a === b) {
-      return 0;
-    }
+    if (a > b) { return -1; } 
+    else if (a < b) { return 1; } 
+    else if (a === b) { return 0; }
+    else return 0
   }
 
 
@@ -164,15 +171,11 @@ export default function Shop() {
     
 
       // Aply filters 
-      if (event.target.value == filtersName[1]) {
-        varCont = varCont.sort(function (a, b) { return a["price"] - b["price"] })
-      } else if (event.target.value == filtersName[2]) {
-        varCont = varCont.sort(function (a, b) { return b["price"] - a["price"] })
-      } else if (event.target.value == filtersName[3]) {
-        varCont.sort(sortThings)
-      } else if (event.target.value == filtersName[3]) {
-        varCont.sort(sortThings_inv)
-      } else { console.log("error"); }
+      if (event.target.value == filtersName[1]) { varCont = varCont.sort(function (a, b) { return a["price"] - b["price"] }) } 
+      else if (event.target.value == filtersName[2]) { varCont = varCont.sort(function (a, b) { return b["price"] - a["price"] }) } 
+      else if (event.target.value == filtersName[3]) { varCont.sort(sortThings) } 
+      else if (event.target.value == filtersName[3]) { varCont.sort(sortThings_inv) } 
+      else { console.log("error"); }
 
 
       for (let index = 0; index < varCont.length; index++) { varCont_f.push(varCont[index]["idBook"]) }
@@ -346,21 +349,46 @@ export default function Shop() {
           </Grid>
       </Box>
       <Box sx={{ flexGrow: 1, boxShadow: "none", margin: "auto" }}>
-        <Grid container justifyContent="center" alignItems="center" spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {loading ? 
-          <Box style={{margin: "15px"}}>
-            <CircularProgress color="success" />
-          </Box>
-          : 
-          books.map((id, index) => (
-            <Grid key={index} item style={{maxWidth: "33%", minWidth: "100px"}}>
-              <Item>
-                <ImgMediaCard id_card={id}/>
-              </Item>
+            <Box style={{margin: "15px"}}>
+              <CircularProgress color="success" />
+            </Box>
+            : 
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid container justifyContent="center" alignItems="center" spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                {books.map((id, index) => (
+                  <Grid key={index} item style={{maxWidth: "33%", minWidth: "100px"}}>
+                    <Item>
+                      <ImgMediaCard id_card={id}/>
+                    </Item>
+                  </Grid>
+                ))}
+              </Grid>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {Array.from(Array(pageNumb).keys()).map((id: number, index) => (
+                  <>
+                    {(id == currentPage || (currentPage == undefined && id == 0)) ?
+                      <></>
+                      :
+                      <Button key={index}>
+                        <Link href={"/shop/" + id}> {id} </Link>
+                      </Button>
+                    }
+                  </>
+                ))}
+              </Grid>
             </Grid>
-          ))
           }
-        </Grid>
       </Box>
       </Grid>
     </>

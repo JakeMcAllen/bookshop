@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
+    "@mui/x-date-pickers": "^7.12.1",
     "@nextui-org/navbar": "^2.0.36",
     "cookies-next": "^4.2.1",
     "mysql": "^2.18.1",

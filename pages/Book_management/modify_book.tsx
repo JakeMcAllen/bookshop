@@ -21,7 +21,7 @@ export default function Modify_book() {
     // const [value, setValue] = useState(0);
 
     const [booksIDS, setBooksIDS] = useState<any[]>([])
-    const [booksIDS_c, setBooksIDS_c] = useState<number>()
+    const [booksIDS_c, setBooksIDS_c] = useState<undefined | number>()
 
 
     useEffect(() => { 
@@ -62,6 +62,8 @@ export default function Modify_book() {
     const [price, setPrice] = useState(0);
     const [pageNumber, setPageNumber] = useState(0);
 
+    const [Pubblication, setPubblication] = useState<undefined | string>();
+
     const [genre_f, setGenre_f] = useState('');
     const [description, setDescription] = useState('');
     
@@ -69,6 +71,7 @@ export default function Modify_book() {
     const handleChange_title = async (event: React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value); }
     const handleChange_genre = async (event: SelectChangeEvent) => { setGenre_f(event.target.value); }
     const handleChange_price = async (event: React.ChangeEvent<HTMLInputElement>) => { setPrice(Number(event.target.value) ); }
+    const handleChange_Pubblication = async (event: React.ChangeEvent<HTMLInputElement>) => { setPubblication( event.target.value); }
     const handleChange_Page_Number = async (event: React.ChangeEvent<HTMLInputElement>) => { setPageNumber( Number(event.target.value) ); }
     const handleChange_Desciption = async (event: React.ChangeEvent<HTMLInputElement>) => { setDescription(event.target.value); }
 
@@ -79,24 +82,30 @@ export default function Modify_book() {
 
         let idUsr = getCookie("id")
 
-        setTitle("")
-        setGenre_f("")
-        setPrice(0)
-        setPageNumber(0)
-        setDescription("")
 
 
-        if (idUsr != undefined && title != "" && price > 0 && pageNumber > 0 && genre_f != "" && genre_f != "none" && description != "") 
-            await modifyBook(title, price, genre_f, description, pageNumber, booksIDS_c )
-        else {
+        if (idUsr != undefined && title != "" && price > 0 && pageNumber > 0 && Pubblication != undefined && Pubblication.split("-").length == 3 && genre_f != "" && genre_f != "none" && description != "") {
+            await modifyBook(title, price, genre_f, Pubblication, description, pageNumber, booksIDS_c )
+
+        } else {
             console.log("title");
             console.log(idUsr);
             console.log(title);
             console.log(price);
+            console.log(Pubblication);
             console.log(pageNumber);
             console.log(genre_f);
             console.log(description);
         }
+
+        setBooksIDS_c(undefined)
+        setTitle("")
+        setGenre_f("")
+        setPrice(0)
+        setPubblication(undefined)
+        setPageNumber(0)
+        setDescription("")
+
 
 
     }
@@ -119,6 +128,7 @@ export default function Modify_book() {
                 setTitle(element["Title"])
                 setGenre_f(element["genre"])
                 setPrice(element["price"])
+                setPubblication(String(element["Pubblication"]).split("T")[0])
                 setPageNumber(element["page_num"])
                 setDescription(element["Description"])
                 
@@ -180,6 +190,8 @@ export default function Modify_book() {
                 >
                     <TextField id="outlined-basic" value={price} type="number" label="Price" variant="outlined" onChange={handleChange_price} />
                     <TextField id="outlined-basic" value={pageNumber} type="number" label="Number of pages" variant="outlined" onChange={handleChange_Page_Number} />
+                    <input id="outlined-basic" type="date" name="dateRequired" value={Pubblication} onChange={handleChange_Pubblication} style={{height: "50px", width: "150px", paddingLeft: "10px"}} /> 
+
                     <FormControl sx={{ m: 1, minWidth: 120 }} size="small" style={{border: "20px", borderColor: "#1976d2",}}>
                         <InputLabel id="demo-select-small-label">Genre</InputLabel>
                         <Select
