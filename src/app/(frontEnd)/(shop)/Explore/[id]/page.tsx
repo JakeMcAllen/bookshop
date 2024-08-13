@@ -21,7 +21,7 @@ export default function Explore(
   const [price, setPrice] = useState<number>(0);
   const [stars, setStars] = useState<number>(2.5);
   const [Pubblication, setPubblication] = useState<string>("");
-  const [reassume, setReassume] = useState<string>("");
+  const [reassume, setReassume] = useState<null | string>(null);
   const [Description, setDescription] = useState<String>("");
 
 
@@ -97,7 +97,7 @@ export default function Explore(
       <Typography> Price: {price} </Typography>
       <Typography> Pubblication: {Pubblication} </Typography>
       <Typography> Riassunto: </Typography>
-      <p>{reassume != "" ? reassume : Description}</p>
+      <p>{reassume == null ? Description : reassume}</p>
     </>
   );
 }
