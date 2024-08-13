@@ -1,6 +1,6 @@
 SELECT * FROM bookshop_db.book;
 SELECT * FROM bookshop_db.book WHERE writer_id=2;
-SELECT * FROM book WHERE reassume IS NULL;
+SELECT idBook, Description FROM book WHERE reassume IS NULL;
 
 SELECT Title, price, rating, reassume FROM bookshop_db.book;
 
@@ -13,6 +13,9 @@ SELECT ROUND(COUNT(idBook) / 6 , 0) as num_page FROM book;
 
 -- UPDATE book SET n_rating = n_rating + 1, rating=(( 1 + rating ) / 2 ) WHERE idBook = 13;
 -- UPDATE book SET Title="", page_num=1, price=1, genre="" WHERE idBook = 13;
+
+UPDATE book SET Description="" WHERE idBook = 13;
+
 
 
 SELECT idBook FROM bookshop_db.book WHERE price>3 and price < 100;
