@@ -155,7 +155,7 @@ export default function Modify_book() {
                 justifyContent="center"
                 alignItems="center"
             >
-                <Typography variant="h4" style={{margin: "25px"}}>Add book</Typography>
+                <Typography variant="h4" style={{margin: "25px"}}>Modify book</Typography>
 
                 <Grid
                     container
