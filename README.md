@@ -1,9 +1,12 @@
 # Challenge AI
 Challenge consiste in un'applicazione web di base per un negozio di libri. L'applicazione dovrebbe consentire agli utenti di visualizzare i libri disponibili, inserirne di nuovi, modificarli e eliminarli.
 
- 
 
-Componenti chiave del task:
+## Structure
+![alt text](https://github.com/JakeMcAllen/bookshop/blob/main/bookshoop.png?raw=true)
+
+ 
+## Componenti chiave del task:
 
 1. Database: 
 
@@ -23,7 +26,7 @@ Il frontend dovrebbe essere costruito usando HTML/CSS e JavaScript (o uno dei su
 
  
 
-Funzionalità
+## Funzionalità
 
  
 
@@ -70,3 +73,6 @@ Almeno una feature basata su AI, tua idea e scelta per lo Use case libreria
 10. Carrello/E-commerce (Priorità bassa): Sebbene questo vada oltre il semplice mantenimento di un inventario, la possibilità di aggiungere un libro a un carrello e effettuare un acquisto potrebbe essere un'interessante futura estensione dell'applicazione. 
 
 Ricorda, queste sono funzionalità aggiuntive e dovrebbero essere considerate solo una volta che le funzionalità principali (CRUD) sono state implementate correttamente.
+
+## PLUS:
+Componente AI
